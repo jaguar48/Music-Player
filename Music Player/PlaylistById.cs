@@ -13,11 +13,18 @@ namespace Music_Player
                 Music.PlayListName = Console.ReadLine();
 
                 Console.WriteLine("{0} successfully Created", Music.PlayListName.ToUpper());
+                Console.WriteLine("Enter 1 to view current music in libary and make selection");
+                var musiclibary = Console.ReadLine();
+                if(musiclibary == "1")
+                {
+                    Music.MusicDisplay();
+                }
 
                 bool checkplay = true;
                 while (checkplay)
                 {
-                    Console.WriteLine("Enter Id");
+                   
+                    Console.WriteLine("Enter Music Id");
                     int enterID = Convert.ToInt32(Console.ReadLine());
 
                     foreach (var msc in Music.musics)
@@ -26,13 +33,13 @@ namespace Music_Player
                         {
 
                             Music.list.Add(msc);
-                            Music.list.ForEach(newplaylist => Console.WriteLine($"{newplaylist.Id} {newplaylist.Track}"));
+                            Music.list.ForEach(newplaylist => Console.WriteLine($"Added {newplaylist.Id} {newplaylist.Track}"));
 
                         }
                        
                        
                     }
-                    Console.WriteLine("Press 1 to add more \n Press any key to go main menu");
+                    Console.WriteLine("Press 1 to add more \nPress any key to go main menu");
                     var moremusic = Console.ReadLine();
                     if (moremusic == "1")
                     {

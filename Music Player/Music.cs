@@ -1,4 +1,6 @@
-﻿namespace Music_Player
+﻿using System.ComponentModel;
+
+namespace Music_Player
 {
     public static partial class Music
     {
@@ -31,13 +33,18 @@
 
             GetMusic().ForEach(music => Console.WriteLine($"Music id {music.Id} Track name: {music.Track} Artist: {music.Artist}"));
 
-            Console.WriteLine("Enter 1 to Sort by Name, 2 to exit");
+            Console.WriteLine("Enter 1 to Sort by Alphabet, 2 to shuffle, Press any key to go back");
             var continuesort = Console.ReadLine();
             if (continuesort == "1")
             {
                 SortMusic();
             }
-            Console.WriteLine("Enter any key to main menu");
+            if (continuesort == "2")
+            {
+                ShuffleMusic();
+            }
+            Console.Clear();
+          
         }
 
 
@@ -49,13 +56,13 @@
             try
             {
                 list.ForEach(disp => Console.WriteLine($"Music id {disp.Id} Track name: {disp.Track} Artist: {disp.Artist}"));
-                Console.WriteLine("Enter 1 to Shuffle playlist, 2 to exit");
+                Console.WriteLine("Enter 1 to Shuffle playlist,Press any key to go main menu");
                 var continueshf = Console.ReadLine();
                 if (continueshf == "1")
                 {
                     ShufflePlayList();
                 }
-                Console.WriteLine("Enter any key to main menu");
+                Console.Clear();
             }
             catch (FormatException ex)
             {
@@ -109,11 +116,9 @@
 
             musics.Sort((firstsort, secondsort) => string.Compare(firstsort.Track, secondsort.Track));
 
-
-       
-
             MusicDisplay();
 
         }
+       
     }
 }

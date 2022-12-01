@@ -4,8 +4,9 @@
     {
         public static void CreatePlayList()
         {
+            Console.Clear();
 
-            start: Console.WriteLine("press 1 to Add by ID \n 2 to Add by Range");
+            start: Console.WriteLine("Press 1 to Add by ID \nPress 2 to Add by Range");
            
                 var PlayList = Console.ReadLine();
             try
@@ -22,7 +23,7 @@
                     Music.PlayListName = Console.ReadLine();
 
                     Console.WriteLine("{0} successfully Created", PlayListName.ToUpper());
-
+                    Console.Clear();
                     Console.WriteLine("Enter from 0-6");
                     Console.WriteLine("enter first range");
                     int range1 = Convert.ToInt32(Console.ReadLine());
