@@ -28,11 +28,19 @@
             Console.Clear();
 
 
+
             GetMusic().ForEach(music => Console.WriteLine($"Music id {music.Id} Track name: {music.Track} Artist: {music.Artist}"));
 
+            Console.WriteLine("Enter 1 to Sort by Name, 2 to exit");
+            var continuesort = Console.ReadLine();
+            if (continuesort == "1")
+            {
+                SortMusic();
+            }
+            Console.WriteLine("Enter any key to main menu");
         }
 
-        
+
         public static void DisplayList()
         {
             Console.Clear();
@@ -65,7 +73,7 @@
 
 
         }
-       
+
         public static void Shuffle<T>(this IList<T> list)
         {
             int n = list.Count;
@@ -91,6 +99,21 @@
 
         }
 
+        public static void SortMusic()
+        {
+            Console.WriteLine("Enter first letter");
+            var firstsort = Console.ReadLine();
 
+            Console.WriteLine("Enter second letter");
+            var secondsort = Console.ReadLine();
+
+            musics.Sort((firstsort, secondsort) => string.Compare(firstsort.Track, secondsort.Track));
+
+
+       
+
+            MusicDisplay();
+
+        }
     }
 }

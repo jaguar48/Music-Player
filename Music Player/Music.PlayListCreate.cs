@@ -36,7 +36,8 @@
                 }
                 else
                 {
-                    Console.WriteLine("Invalid input");
+                    Console.Clear();
+                    Console.WriteLine($"Invalid input {PlayList}");
                     goto start;
                 }
                 
