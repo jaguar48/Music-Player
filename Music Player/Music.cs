@@ -1,8 +1,16 @@
 ﻿namespace Music_Player
 {
-    internal class Music
+    public static partial class Music
     {
-        public static  List<MusicList> musics = new List<MusicList>{
+        public static string? PlayListName;
+
+        private static readonly Random rng = new();
+
+        public static List<MusicList> list = new();
+
+        public static int myid = 0;
+
+        public static List<MusicList> musics = new List<MusicList>{
             new MusicList {Id = 1, Track ="May it be", Artist ="Enya" },
             new MusicList {Id = 2, Track ="Flora Secret", Artist ="Enya"},
             new MusicList {Id = 3,Track ="Orinoco flow", Artist ="Enya" },
@@ -10,69 +18,79 @@
             new MusicList {Id = 5,Track ="China Roses",Artist ="Enya" },
             new MusicList {Id = 6,Track ="Storm in Africa",Artist ="Enya" } };
 
-       static List<MusicList> GetMusic()
+        static List<MusicList> GetMusic()
         {
             return musics;
         }
 
         public static void MusicDisplay()
         {
-            
+            Console.Clear();
+
 
             GetMusic().ForEach(music => Console.WriteLine($"Music id {music.Id} Track name: {music.Track} Artist: {music.Artist}"));
 
         }
-        public static void AddMusic()
+
+        
+        public static void DisplayList()
         {
-            
+            Console.Clear();
 
-            int myid = 0;
-
-            foreach (var msc in GetMusic())
+            Console.WriteLine("Playlist Name: {0}", PlayListName);
+            try
             {
-                if (msc.Id != myid)
+                list.ForEach(disp => Console.WriteLine($"Music id {disp.Id} Track name: {disp.Track} Artist: {disp.Artist}"));
+                Console.WriteLine("Enter 1 to Shuffle playlist, 2 to exit");
+                var continueshf = Console.ReadLine();
+                if (continueshf == "1")
                 {
-                    myid += 1;
-
+                    ShufflePlayList();
                 }
+                Console.WriteLine("Enter any key to main menu");
             }
-            bool checksession = true;
-            while (checksession)
+            catch (FormatException ex)
             {
-                Console.WriteLine("Add new musics");
-                Console.WriteLine("Enter name of song");
-                var track = Console.ReadLine();
+                Console.WriteLine(ex.Message);
+            }
+            catch (OverflowException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
-                Console.WriteLine("Enter Artist name");
-                var artist = Console.ReadLine();
 
-                GetMusic().Add(new MusicList { Id = myid += 1, Track = track, Artist = artist });
-                MusicDisplay();
-                Console.WriteLine("do you want to add more press 1 \n ");
-                var moremusic = Console.ReadLine();
-                if (moremusic == "1")
-                {
-                    checksession = true;
-                }
-                else
-                {
-                    Console.WriteLine("goodbye");
-                    break;
-                }
+
+        }
+       
+        public static void Shuffle<T>(this IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                (list[n], list[k]) = (list[k], list[n]);
             }
         }
-        public static void Removemusic()
+
+        public static void ShuffleMusic()
         {
-            
 
-            Console.WriteLine("enter music ID to remove");
-            int removemsc = Convert.ToInt32(Console.ReadLine());
-
-            var firstMatch = GetMusic().First(s => s.Id == removemsc);
-            GetMusic().Remove(firstMatch);
+            GetMusic().Shuffle();
             MusicDisplay();
 
         }
+        public static void ShufflePlayList()
+        {
+            list.Shuffle();
+            DisplayList();
+
+        }
+
 
     }
 }
