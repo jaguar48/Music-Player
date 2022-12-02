@@ -9,6 +9,7 @@
             start: Console.WriteLine("Press 1 to Add by ID \nPress 2 to Add by Range");
            
                 var PlayList = Console.ReadLine();
+            
             try
             {
                 if (PlayList == "1")
@@ -24,12 +25,12 @@
 
                     Console.WriteLine("{0} successfully Created", PlayListName.ToUpper());
                     Console.Clear();
-                    Console.WriteLine("Enter from 0-6");
+             Console.WriteLine("Enter from 0-5");
                     Console.WriteLine("enter first range");
                     int range1 = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine("enter second range");
                     int range2 = Convert.ToInt32(Console.ReadLine());
-
+                    Console.Clear();
                     list = musics.GetRange(range1, range2);
                     list.ForEach(rangelist => Console.WriteLine($"{rangelist.Id} {rangelist.Track}"));
 
@@ -54,6 +55,15 @@
             catch (ArgumentOutOfRangeException ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("Enter valid range");
+                Console.Clear();
+                Console.WriteLine(ex.Message);
+                
+                goto start;
+                
             }
 
         }

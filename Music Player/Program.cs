@@ -5,6 +5,7 @@ class App
     public static void Main(string[] args)
     {
         while (true){
+            Console.WriteLine("<== Welcome to Motion Studio ==>\n");
             Console.WriteLine("Press 1 to display current music \nPress 2 to add new music \nPress 3 to remove music\nPress 4 to edit music\nPress 5 to create playlist\nPress 6 to view playlist\nPress 7 to shuffle\nPress 0 or enter key to exit"); var enteropt = Console.ReadLine();
             if (enteropt == "1")
             {

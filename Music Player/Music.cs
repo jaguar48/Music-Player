@@ -57,14 +57,30 @@
         public static void DisplayList()
         {
             Console.Clear();
+            if (list.Count == 0)
+            {
+                Console.WriteLine("Empty list \nPress 1 to create new playlist");
+                
+                var newplys = Console.ReadLine();
+                Console.Clear();
+                if (newplys == "1")
+                {
+                    CreatePlayList();
+                }
 
+            }
             Console.WriteLine("Playlist Name: {0}", PlayListName);
             try
             {
                 list.ForEach(disp => Console.WriteLine($"Music id {disp.Id} Track name: {disp.Track} Artist: {disp.Artist}"));
-                Console.WriteLine("Enter 1 to Shuffle playlist,Press any key to go main menu");
+                Console.WriteLine("<== Enter 1 to Play Songs, 2 to Shuffle playlist ==> Press any key to go main menu");
                 var continueshf = Console.ReadLine();
                 if (continueshf == "1")
+                {
+                    PlayListSong();
+                    
+                }
+                if(continueshf == "2")
                 {
                     ShufflePlayList();
                 }
@@ -114,99 +130,20 @@
 
         public static void SortMusic()
         {
-            /*Console.WriteLine("Enter first letter");
+            Console.WriteLine("Enter first letter");
             var firstsort = Console.ReadLine();
-*/
+
             Console.WriteLine("Enter second letter");
             var secondsort = Console.ReadLine();
-            /* foreach (var mols in musics)
-             {
-                 if (mols.Id == secondsort)
-                 {
-                     musics.Sort();
-                 }
-             }*/
 
 
-            /*   musics.Sort((firstsort, secondsort) => string.Compare(firstsort.Track, secondsort.Track));*/
+
+            musics.Sort((firstsort, secondsort) => string.Compare(firstsort.Track, secondsort.Track));
 
             MusicDisplay();
 
         }
 
-        public static void PlaySong()
-        {
-            Console.Clear();
-            List<string> MyMusic = new List<string>();
-            Console.WriteLine("Enter music ID you want to play");
-            
-            int SongtoPlay = Convert.ToInt32(Console.ReadLine());
-            Console.Clear();
-            while (true)
-            {
 
-
-              
-
-                    foreach (var musia in musics)
-                    {
-                        MyMusic.Add($"Now Playing {musia.Track} by {musia.Artist}");
-
-                    }
-
-                    Console.WriteLine(MyMusic.ElementAt(SongtoPlay));
-                start: Console.WriteLine("1: << Previous \n" +
-                   "2: Next >>\n" +
-                   "0: To Return to Main Menu");
-                    string input = Console.ReadLine();
-
-
-                    try
-                    {
-                        if (input == "1")
-                        {
-                            Console.Clear();
-                            Console.WriteLine(MyMusic.ElementAt(SongtoPlay -= 1));
-                            Console.WriteLine(SongtoPlay);
-
-                            continue;
-                        }
-
-
-                        if (input == "2")
-                        {
-                            Console.Clear();
-                            Console.WriteLine(MyMusic.ElementAt(SongtoPlay += 1));
-
-                        }
-                        else
-                        {
-                            Console.Clear();
-                            break;
-                        }
-                    }
-
-
-                    catch (FormatException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    catch (OverflowException ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                    catch (ArgumentOutOfRangeException ex)
-                    {
-                        
-                        Console.WriteLine(ex.Message);
-                        MyMusic.ElementAt(SongtoPlay = 1);
-                        goto start;
-                    }
-         
-            }
-
-
-
-        }
     }
 }
