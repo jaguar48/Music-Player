@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Music_Player
+﻿namespace Music_Player
 {
     public static partial class Music
     {
@@ -33,18 +31,26 @@ namespace Music_Player
 
             GetMusic().ForEach(music => Console.WriteLine($"Music id {music.Id} Track name: {music.Track} Artist: {music.Artist}"));
 
-            Console.WriteLine("Enter 1 to Sort by Alphabet, 2 to shuffle, Press any key to go back");
+            Console.WriteLine("====> Enter 1 to play songs,====> 2 to Sort, ====>3 to shuffle, Press any key to go back");
             var continuesort = Console.ReadLine();
             if (continuesort == "1")
             {
-                SortMusic();
+                PlaySong();
+
             }
             if (continuesort == "2")
             {
-                ShuffleMusic();
+                SortMusic();
+
             }
-            Console.Clear();
-          
+            if (continuesort == "3")
+            {
+                ShuffleMusic();
+
+
+            }
+
+
         }
 
 
@@ -108,17 +114,99 @@ namespace Music_Player
 
         public static void SortMusic()
         {
-            Console.WriteLine("Enter first letter");
+            /*Console.WriteLine("Enter first letter");
             var firstsort = Console.ReadLine();
-
+*/
             Console.WriteLine("Enter second letter");
             var secondsort = Console.ReadLine();
+            /* foreach (var mols in musics)
+             {
+                 if (mols.Id == secondsort)
+                 {
+                     musics.Sort();
+                 }
+             }*/
 
-            musics.Sort((firstsort, secondsort) => string.Compare(firstsort.Track, secondsort.Track));
+
+            /*   musics.Sort((firstsort, secondsort) => string.Compare(firstsort.Track, secondsort.Track));*/
 
             MusicDisplay();
 
         }
-       
+
+        public static void PlaySong()
+        {
+            Console.Clear();
+            List<string> MyMusic = new List<string>();
+            Console.WriteLine("Enter music ID you want to play");
+            
+            int SongtoPlay = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
+            while (true)
+            {
+
+
+              
+
+                    foreach (var musia in musics)
+                    {
+                        MyMusic.Add($"Now Playing {musia.Track} by {musia.Artist}");
+
+                    }
+
+                    Console.WriteLine(MyMusic.ElementAt(SongtoPlay));
+                start: Console.WriteLine("1: << Previous \n" +
+                   "2: Next >>\n" +
+                   "0: To Return to Main Menu");
+                    string input = Console.ReadLine();
+
+
+                    try
+                    {
+                        if (input == "1")
+                        {
+                            Console.Clear();
+                            Console.WriteLine(MyMusic.ElementAt(SongtoPlay -= 1));
+                            Console.WriteLine(SongtoPlay);
+
+                            continue;
+                        }
+
+
+                        if (input == "2")
+                        {
+                            Console.Clear();
+                            Console.WriteLine(MyMusic.ElementAt(SongtoPlay += 1));
+
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            break;
+                        }
+                    }
+
+
+                    catch (FormatException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (OverflowException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        
+                        Console.WriteLine(ex.Message);
+                        MyMusic.ElementAt(SongtoPlay = 1);
+                        goto start;
+                    }
+         
+            }
+
+
+
+        }
     }
 }
